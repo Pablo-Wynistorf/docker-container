@@ -1,0 +1,23 @@
+FROM ubuntu:latest
+
+RUN apt-get update \
+    && apt-get install nano \
+	&& apt-get install wget -y \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN wget https://install.speedtest.net/ooklaserver/ooklaserver.sh && chmod a+x ooklaserver.sh
+RUN ./ooklaserver.sh install -f
+RUN rm ooklaserver.sh
+
+RUN echo 'OoklaServer.ssl.useLetsEncrypt = true' >> OoklaServer.properties
+RUN echo 'OoklaServer.enableAutoUpdate = true' >> OoklaServer.properties
+RUN echo 'OoklaServer.useIPv6 = true' >> OoklaServer.properties
+RUN echo 'OoklaServer.allowedDomains = *.ookla.com, *.speedtest.net, *.onedns.ch' >> OoklaServer.properties
+
+
+RUN useradd --create-home --shell /bin/bash guest
+USER guest
+
+EXPOSE 8080 5060
+
+CMD ["./OoklaServer", "start"]
