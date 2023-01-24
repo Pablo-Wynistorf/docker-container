@@ -12,7 +12,7 @@ RUN rm ooklaserver.sh
 RUN echo 'OoklaServer.ssl.useLetsEncrypt = true' >> OoklaServer.properties
 RUN echo 'OoklaServer.enableAutoUpdate = true' >> OoklaServer.properties
 RUN echo 'OoklaServer.useIPv6 = true' >> OoklaServer.properties
-RUN echo 'OoklaServer.allowedDomains = *.ookla.com, *.speedtest.net, *.onedns.ch' >> OoklaServer.properties
+RUN echo 'OoklaServer.allowedDomains = *.ookla.com, *.speedtest.net' >> OoklaServer.properties
 
 
 RUN useradd --create-home --shell /bin/bash guest
